@@ -3,10 +3,10 @@ from sqlalchemy.orm import Session
 import models, schemas, crud
 from database import SessionLocal, engine
 from typing import List
-from utils import haversine
-from utils import get_location_from_ip
+from utils import haversine, get_location_from_ip
+from mangum import Mangum
 
-# Create DB tables (only needed once)
+# Only needed locally once — skip for Lambda
 # models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="GeoJournal API", version="1.0.0")
@@ -19,10 +19,9 @@ def get_db():
     finally:
         db.close()
 
-
 @app.post("/notes", response_model=schemas.Note)
 async def create_note(note: schemas.NoteCreate, db: Session = Depends(get_db)):
-    note = note.copy_mutable()  # Make it editable
+    note = note.copy_mutable()
     if note.latitude is None or note.longitude is None:
         coords = await get_location_from_ip()
         if coords:
@@ -30,11 +29,9 @@ async def create_note(note: schemas.NoteCreate, db: Session = Depends(get_db)):
 
     return crud.create_note(db, note)
 
-
 @app.get("/notes", response_model=List[schemas.Note])
 def read_notes(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     return crud.get_notes(db, skip=skip, limit=limit)
-
 
 @app.get("/notes/nearby", response_model=List[schemas.Note])
 def get_nearby_notes(
@@ -55,3 +52,5 @@ def get_nearby_notes(
 
     return nearby
 
+# ✅ Only define handler ONCE after routes
+handler = Mangum(app)

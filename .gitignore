@@ -1,5 +1,42 @@
+# 🐍 Python
 __pycache__/
-*.pyc
+*.py[cod]
+*.pyo
+*.pyd
+*.sqlite3
 *.db
+
+# 🧪 Testing
+.coverage
+htmlcov/
+.tox/
+.pytest_cache/
+
+# 🔐 Environment
 .env
+.env.*
+
+# 📦 Virtual Environment
 .venv/
+venv/
+ENV/
+env/
+
+# 🔧 VS Code / PyCharm / Other IDEs
+.vscode/
+.idea/
+*.swp
+
+# 🛠 SAM / Build artifacts
+.aws-sam/
+samconfig.toml
+
+# 📄 Logs
+*.log
+
+# 📄 macOS/Windows noise
+.DS_Store
+Thumbs.db
+
+package
+

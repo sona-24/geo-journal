@@ -1,0 +1,6 @@
+mangum
+fastapi
+uvicorn
+sqlalchemy
+pydantic
+httpx
