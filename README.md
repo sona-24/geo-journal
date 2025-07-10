@@ -42,7 +42,7 @@ GeoJournal is a RESTful journaling API built with **FastAPI** and deployed **ser
 
 ## 🧪 Example Note (POST `/notes`)
 
-```json
+
 {
   "title": "Hiking in Yosemite",
   "content": "Waterfalls were roaring today!",
@@ -53,7 +53,7 @@ GeoJournal is a RESTful journaling API built with **FastAPI** and deployed **ser
 
 This project includes a GitHub Actions workflow to enable **automatic deployment** to AWS Lambda using the AWS SAM CLI.
 
-### ✅ What it does:
+## ✅ What it does:
 
 - Triggers on every push to `main`
 - Builds your FastAPI app using `sam build`
@@ -93,12 +93,4 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-📦 How to Run Locally
-python -m venv .venv
-.venv\Scripts\activate  # or source .venv/bin/activate
-pip install -r requirements.txt
-uvicorn main:app --reload
 
-☁️ How to Deploy with AWS SAM
-sam build
-sam deploy --guided
